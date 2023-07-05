@@ -3,6 +3,7 @@ package command
 import (
 	"fmt"
 	"my-help/src/command/tools"
+	"my-help/src/common"
 	"path/filepath"
 
 	commandCli "github.com/urfave/cli"
@@ -21,6 +22,8 @@ func action(c *commandCli.Context) error {
 		return doMd5sum(c)
 	case CommandUnzip:
 		return doUnzip(c)
+	case CommandTime:
+		return doConvertTime(c)
 	default:
 		return fmt.Errorf("unknown command[%s]", c.Command.Name)
 	}
@@ -75,4 +78,12 @@ func doUnzip(c *commandCli.Context) error {
 
 	_, err := tools.Unzip(file, dir)
 	return err
+}
+
+func doConvertTime(c *commandCli.Context) error {
+	if c.IsSet(FlagString) {
+		return tools.ConvertTime(c.String(FlagString))
+	}
+
+	return common.ErrorTarget
 }

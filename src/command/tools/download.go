@@ -9,7 +9,7 @@ import (
 	"path/filepath"
 )
 
-func DownloadFile(f string, urlstr string) (err error) {
+func DownloadFile(f string, urlstr string) error {
 
 	if f == "" {
 		dir, _ := os.Getwd()

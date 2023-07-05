@@ -11,13 +11,15 @@ import (
 
 // define const keys for fast build main
 const (
-	FlagURL  = "url"
-	FlagFile = "file"
-	FlagDir  = "dir"
+	FlagURL    = "url"
+	FlagFile   = "file"
+	FlagDir    = "dir"
+	FlagString = "string"
 
 	CommandDownload = "download"
 	CommandMd5sum   = "md5sum"
 	CommandUnzip    = "unzip"
+	CommandTime     = "time"
 )
 
 // Name : return client name
@@ -93,6 +95,18 @@ func run() error {
 				commandCli.StringFlag{
 					Name:  "dir",
 					Usage: "directory to save unziped files",
+				},
+			},
+		},
+		{
+			Name:    CommandTime,
+			Aliases: []string{"time"},
+			Usage:   "convert time format",
+			Action:  MainActionFuncEntry,
+			Flags: []commandCli.Flag{
+				commandCli.StringFlag{
+					Name:  "string, s",
+					Usage: "string of time to convert",
 				},
 			},
 		},

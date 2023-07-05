@@ -4,6 +4,7 @@ import "fmt"
 
 var (
 	ErrorUnknown = fmt.Errorf("unknown error")
+	ErrorTarget  = fmt.Errorf("target string is empty")
 )
 
 var errorCodeMap map[error]int

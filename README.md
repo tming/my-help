@@ -8,6 +8,7 @@
 4. 时间的换算
 5. 简单的加减乘除的计算
 6. 进制转换，比如10进制转二进制等
+7. telnet
 
 
 
@@ -23,7 +24,7 @@ set GO111MODULE=on
 
 
 
-**linux下：**
+**linux：**
 
 ```
 export GO111MODULE=on
