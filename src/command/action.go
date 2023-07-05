@@ -24,8 +24,10 @@ func action(c *commandCli.Context) error {
 		return doUnzip(c)
 	case CommandTime:
 		return doConvertTime(c)
+	case CommandCalc:
+		return doCalc(c)
 	default:
-		return fmt.Errorf("unknown command[%s]", c.Command.Name)
+		return fmt.Errorf("not implement command[%s]", c.Command.Name)
 	}
 }
 
@@ -83,6 +85,14 @@ func doUnzip(c *commandCli.Context) error {
 func doConvertTime(c *commandCli.Context) error {
 	if c.IsSet(FlagString) {
 		return tools.ConvertTime(c.String(FlagString))
+	}
+
+	return common.ErrorTarget
+}
+
+func doCalc(c *commandCli.Context) error {
+	if c.IsSet(FlagString) {
+		return tools.Calc(c.String(FlagString))
 	}
 
 	return common.ErrorTarget

@@ -9,6 +9,8 @@
 5. 简单的加减乘除的计算
 6. 进制转换，比如10进制转二进制等
 7. telnet
+8. 简单的grep功能
+9. 简单的sed功能
 
 
 
@@ -37,3 +39,8 @@ make tool
 ## 例子：
 
 my-help --help
+
+.\bin\my-help.exe time -s "1136214245000000000"
+.\bin\my-help.exe time -s "2006-01-02 15:04:05"
+
+.\bin\my-help.exe calc -s "1888*1111111*1212"

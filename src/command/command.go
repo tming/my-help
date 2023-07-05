@@ -14,12 +14,13 @@ const (
 	FlagURL    = "url"
 	FlagFile   = "file"
 	FlagDir    = "dir"
-	FlagString = "string"
+	FlagString = "str"
 
 	CommandDownload = "download"
 	CommandMd5sum   = "md5sum"
 	CommandUnzip    = "unzip"
 	CommandTime     = "time"
+	CommandCalc     = "calc"
 )
 
 // Name : return client name
@@ -105,8 +106,20 @@ func run() error {
 			Action:  MainActionFuncEntry,
 			Flags: []commandCli.Flag{
 				commandCli.StringFlag{
-					Name:  "string, s",
+					Name:  "str, s",
 					Usage: "string of time to convert",
+				},
+			},
+		},
+		{
+			Name:    CommandCalc,
+			Aliases: []string{"calc"},
+			Usage:   "simple calc",
+			Action:  MainActionFuncEntry,
+			Flags: []commandCli.Flag{
+				commandCli.StringFlag{
+					Name:  "str, s",
+					Usage: "string of calc",
 				},
 			},
 		},
