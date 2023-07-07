@@ -12,21 +12,21 @@ func Calc(str string) error {
 		return common.ErrorTarget
 	}
 
-	// 解析字符串为表达式
+	// parse str to expression
 	expr, err := eval.ParseString(str, "")
 	if err != nil {
 		fmt.Println("Invalid expression:", str)
 		return err
 	}
 
-	// 计算表达式的值
+	// calc result for expression
 	result, err := expr.EvalToInterface(nil)
 	if err != nil {
 		fmt.Println("Evaluation error:", err)
 		return err
 	}
 
-	// 打印计算结果
+	// output
 	fmt.Println("result: ", result)
 
 	return nil

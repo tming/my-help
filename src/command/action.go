@@ -26,6 +26,8 @@ func action(c *commandCli.Context) error {
 		return doConvertTime(c)
 	case CommandCalc:
 		return doCalc(c)
+	case CommandTelnet:
+		return doTelnet(c)
 	default:
 		return fmt.Errorf("not implement command[%s]", c.Command.Name)
 	}
@@ -96,4 +98,22 @@ func doCalc(c *commandCli.Context) error {
 	}
 
 	return common.ErrorTarget
+}
+
+func doTelnet(c *commandCli.Context) error {
+	host := ""
+	if c.IsSet(FlagHost) {
+		host = c.String(FlagHost)
+	} else {
+		return fmt.Errorf("host should not be empty")
+	}
+
+	port := ""
+	if c.IsSet(FlagPort) {
+		port = c.String(FlagPort)
+	} else {
+		return fmt.Errorf("port should not be empty")
+	}
+
+	return tools.Telnet(host, port)
 }

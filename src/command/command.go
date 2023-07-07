@@ -15,12 +15,15 @@ const (
 	FlagFile   = "file"
 	FlagDir    = "dir"
 	FlagString = "str"
+	FlagHost   = "host"
+	FlagPort   = "port"
 
 	CommandDownload = "download"
 	CommandMd5sum   = "md5sum"
 	CommandUnzip    = "unzip"
 	CommandTime     = "time"
 	CommandCalc     = "calc"
+	CommandTelnet   = "telnet"
 )
 
 // Name : return client name
@@ -120,6 +123,22 @@ func run() error {
 				commandCli.StringFlag{
 					Name:  "str, s",
 					Usage: "string of calc",
+				},
+			},
+		},
+		{
+			Name:    CommandTelnet,
+			Aliases: []string{"telnet"},
+			Usage:   "simple telnet",
+			Action:  MainActionFuncEntry,
+			Flags: []commandCli.Flag{
+				commandCli.StringFlag{
+					Name:  "host, ip",
+					Usage: "ip of host",
+				},
+				commandCli.StringFlag{
+					Name:  "port, p",
+					Usage: "string of port",
 				},
 			},
 		},
