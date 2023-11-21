@@ -7,10 +7,8 @@
 3. unzip文件
 4. 时间的换算
 5. 简单的加减乘除的计算
-6. 进制转换，比如10进制转二进制等
-7. telnet
-8. 简单的grep功能
-9. 简单的sed功能
+6. telnet
+7. windows下的pstree
 
 
 
@@ -44,3 +42,4 @@ my-help --help
 .\bin\my-help.exe time -s "2006-01-02 15:04:05"
 
 .\bin\my-help.exe calc -s "1888*1111111*1212"
+.\bin\my-help.exe pstree
