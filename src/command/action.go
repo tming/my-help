@@ -28,6 +28,8 @@ func action(c *commandCli.Context) error {
 		return doCalc(c)
 	case CommandTelnet:
 		return doTelnet(c)
+	case CommandPstree:
+		return doPstree(c)
 	default:
 		return fmt.Errorf("not implement command[%s]", c.Command.Name)
 	}
@@ -116,4 +118,8 @@ func doTelnet(c *commandCli.Context) error {
 	}
 
 	return tools.Telnet(host, port)
+}
+
+func doPstree(c *commandCli.Context) error {
+	return tools.Pstree()
 }

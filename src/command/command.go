@@ -24,6 +24,7 @@ const (
 	CommandTime     = "time"
 	CommandCalc     = "calc"
 	CommandTelnet   = "telnet"
+	CommandPstree   = "pstree"
 )
 
 // Name : return client name
@@ -141,6 +142,13 @@ func run() error {
 					Usage: "string of port",
 				},
 			},
+		},
+		{
+			Name:    CommandPstree,
+			Aliases: []string{"pstree"},
+			Usage:   "pstree",
+			Action:  MainActionFuncEntry,
+			Flags:   []commandCli.Flag{},
 		},
 	}
 
