@@ -11,23 +11,30 @@ const (
 	keyProcessId       = "ProcessId"
 	keyParentProcessId = "ParentProcessId"
 	keyName            = "Name"
+	keyWorkingSetSize  = "WorkingSetSize"
+	keyCreationDate    = "CreationDate"
+
+	keyNum = 5 + 1 // query keys and default node
 )
 
 func getQueryHeaders() string {
-	return fmt.Sprintf("%s,%s,%s", keyProcessId, keyParentProcessId, keyName)
+	return fmt.Sprintf("%s,%s,%s,%s,%s", keyProcessId, keyParentProcessId, keyName, keyWorkingSetSize, keyCreationDate)
 }
 
 type process struct {
-	name    string
-	pid     string
-	ppid    string
+	name           string
+	pid            string
+	ppid           string
+	workingSetSize string
+	creationDate   string
+
 	printed bool
 
 	children []*process
 }
 
 func (p *process) toString() string {
-	return fmt.Sprintf("%s %s %s", p.name, p.pid, p.ppid)
+	return fmt.Sprintf("%s %s %s %s %s ", p.name, p.pid, p.ppid, p.workingSetSize, p.creationDate)
 }
 
 func printProcess(p *process, indentation int) {
@@ -49,19 +56,29 @@ func printProcess(p *process, indentation int) {
 	}
 }
 
-func getIndexFromHeader(lines []string) (nameindex, pidindex, ppidindex int, err error) {
+func getIndexFromHeader(lines []string) (nameindex, pidindex, ppidindex, wsindex, cdindex int, err error) {
 	for _, l := range lines {
 		if !strings.Contains(l, keyParentProcessId) {
 			continue
 		}
 		filelds := strings.Split(strings.Trim(l, "\r\n "), ",")
 		for i, v := range filelds {
-			if v == keyProcessId {
+			switch v {
+			case keyProcessId:
 				pidindex = i
-			} else if v == keyParentProcessId {
+				break
+			case keyParentProcessId:
 				ppidindex = i
-			} else if v == keyName {
+				break
+			case keyName:
 				nameindex = i
+				break
+			case keyWorkingSetSize:
+				wsindex = i
+				break
+			case keyCreationDate:
+				cdindex = i
+				break
 			}
 		}
 		return
@@ -81,10 +98,11 @@ func Pstree() error {
 		fmt.Println("执行命令出错:", err)
 		return nil
 	}
+	// fmt.Printf("%s\r\n", string(out))
 
 	lines := strings.Split(string(out), "\n")
 	// get right result index for each key
-	nindex, pindex, ppindex, err := getIndexFromHeader(lines)
+	nindex, pindex, ppindex, wsindex, cdindex, err := getIndexFromHeader(lines)
 	if err != nil {
 		return err
 	}
@@ -95,11 +113,13 @@ func Pstree() error {
 			continue
 		}
 		filelds := strings.Split(strings.Trim(l, "\r\n "), ",")
-		if len(filelds) == 4 {
+		if len(filelds) >= keyNum {
 			processarr = append(processarr, &process{
-				name: filelds[nindex],
-				ppid: filelds[ppindex],
-				pid:  filelds[pindex],
+				name:           filelds[nindex],
+				ppid:           filelds[ppindex],
+				pid:            filelds[pindex],
+				workingSetSize: filelds[wsindex],
+				creationDate:   filelds[cdindex],
 			})
 		}
 	}
